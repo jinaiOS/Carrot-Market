@@ -2,25 +2,30 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: gray;
+  background-color: rgb(211, 210, 210);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 40px;
+  height: 60px;
 }
 
 footer img {
   width: 20px;
   height: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .message-box {
   border-radius: 15px;
-  background-color: whitesmoke;
+  background-color: white;
   display: flex;
   justify-content: space-between;
   width: 80%;
-  padding: 10px 10px 10px 10px;
+  padding: 10px 5px 10px 10px;
 }
 
-/* .message-box__ */
+.message-box__input {
+  background-color: rgba(0, 0, 0, 0);
+  border: 0px;
+}
