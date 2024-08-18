@@ -70,10 +70,21 @@
     <footer>
       <img src="assets/plus.svg" />
       <div class="message-box">
-        <input class="message-box__input" placeholder="메시지를 입력하세요." />
+        <input
+          class="message-box__input"
+          id="message-box__input"
+          name="message"
+          placeholder="메시지를 입력하세요."
+          autocomplete="on"
+        />
         <img src="assets/smile.svg" />
       </div>
-      <img src="assets/send.svg" />
+      <form id="submit">
+        <button type="submit">
+          <img src="assets/send.svg" />
+        </button>
+      </form>
     </footer>
+    <script src="js/app.js"></script>
   </body>
 </html>
