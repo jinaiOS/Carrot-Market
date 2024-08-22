@@ -15,6 +15,7 @@ const handleSubmit = async (event) => {
   const formData = new FormData(form);
   const sha256Password = sha256(formData.get("password"));
   formData.set("password", sha256Password);
+  console.log(formData);
 
   const div = document.querySelector("#info");
 
@@ -27,8 +28,9 @@ const handleSubmit = async (event) => {
     const data = await res.json();
 
     if (data === "200") {
-      div.innerText = "회원가입에 성공했습니다!";
-      div.style.color = "blue";
+      div.innerText = "";
+      alert("회원가입에 성공했습니다!");
+      window.location.pathname = "/login.html";
     }
   } else {
     div.innerText = "비밀번호가 같지 않습니다.";
