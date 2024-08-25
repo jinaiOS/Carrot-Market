@@ -66,15 +66,23 @@ const renderData = (data) => {
 
 const fetchData = async () => {
   try {
-    const res = await fetch("/items");
-    const data = await res.json(); // 메서드 호출
+    const accessToken = window.localStorage.getItem("token");
+    const res = await fetch("/items", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    if (res.status === 401) {
+      alert("로그인이 필요합니다!");
+      window.location.pathname = "/login.html";
+      return;
+    }
 
-    console.log(data); // 데이터 구조 확인
+    const data = await res.json(); // 응답 데이터를 JSON으로 변환
     renderData(data); // 데이터 렌더링
   } catch (error) {
     console.error("데이터를 가져오는 데 오류가 발생했습니다:", error);
   }
 };
 
-// 데이터 가져오기 함수 호출
 fetchData();
