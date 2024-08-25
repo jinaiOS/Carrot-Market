@@ -2,6 +2,8 @@ from fastapi import FastAPI, UploadFile, Form
 from fastapi.responses import JSONResponse, Response
 from fastapi.encoders import jsonable_encoder
 from fastapi.staticfiles import StaticFiles
+from fastapi_login import LoginManager
+from fastapi_login.exceptions import InvalidCredentialsException
 from pydantic import BaseModel
 from typing import Annotated
 import sqlite3
@@ -27,6 +29,47 @@ class Chat(BaseModel):
 chats = []
 
 app = FastAPI()
+
+SECRET = "jina-key"
+manager = LoginManager(SECRET,'/login')
+
+@manager.user_loader()
+def query_user(id):
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    user = cur.execute(f"""
+                       SELECT * from users WHERE id='{id}'
+                       """).fetchone()
+    return user
+
+@app.post('/login')
+def login(id:Annotated[str,Form()], 
+           password:Annotated[str,Form()]):
+    user = query_user(id)
+    if not user:
+        raise InvalidCredentialsException
+    elif password != user['password']:
+        raise InvalidCredentialsException
+    
+    access_token = manager.create_access_token(data={
+        'id':user['id'],
+        'name':user['name'],
+        'email':user['email']
+    })
+    
+    return {'access_token':access_token}
+
+@app.post('/signup')
+def signup(id:Annotated[str,Form()], 
+           password:Annotated[str,Form()],
+           name:Annotated[str,Form()],
+           email:Annotated[str,Form()]):
+    cur.execute(f"""
+                INSERT INTO users(id,name,email,password)
+                VALUES ('{id}','{name}','{email}','{password}')
+                """)
+    con.commit()
+    return '200'
 
 @app.post("/chats")
 def create_chat(chat:Chat):
@@ -70,17 +113,5 @@ async def get_image(item_id):
                               SELECT image from items WHERE id={item_id}
                               """).fetchone()[0]
     return Response(content=bytes.fromhex(image_bytes), media_type='image/*')
-
-@app.post('/signup')
-def signup(id:Annotated[str,Form()], 
-           password:Annotated[str,Form()],
-           name:Annotated[str,Form()],
-           email:Annotated[str,Form()]):
-    cur.execute(f"""
-                INSERT INTO users(id,name,email,password)
-                VALUES ('{id}','{name}','{email}','{password}')
-                """)
-    con.commit()
-    return '200'
 
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
