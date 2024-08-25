@@ -6,6 +6,7 @@ from fastapi_login import LoginManager
 from fastapi_login.exceptions import InvalidCredentialsException
 from pydantic import BaseModel
 from typing import Annotated
+import hashlib
 import sqlite3
 
 con = sqlite3.connect('db.db', check_same_thread=False)
@@ -69,9 +70,10 @@ def signup(id:Annotated[str,Form()],
            password:Annotated[str,Form()],
            name:Annotated[str,Form()],
            email:Annotated[str,Form()]):
+    hashPassword = hashlib.sha256(password.encode()).hexdigest()
     cur.execute(f"""
                 INSERT INTO users(id,name,email,password)
-                VALUES ('{id}','{name}','{email}','{password}')
+                VALUES ('{id}','{name}','{email}','{hashPassword}')
                 """)
     con.commit()
     return '200'
