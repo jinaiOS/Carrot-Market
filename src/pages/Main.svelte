@@ -8,10 +8,23 @@
 
   $: items = [];
 
+  const calcTime = (timestamp) => {
+    const curTime = new Date().getTime() - 9 * 60 * 60 * 1000;
+    const time = new Date(curTime - timestamp);
+    const hour = time.getHours();
+    const minute = time.getMinutes();
+    const second = time.getSeconds();
+
+    if (hour > 0) return `${hour}시간 전`;
+    else if (minute > 0) return `${minute}분 전`;
+    else if (second > 0) return `${second}초 전`;
+    else "방금 전";
+  };
+
   const db = getDatabase();
   const itemsRef = ref(db, "items/");
 
-   onMount(() =>
+  onMount(() =>
     onValue(itemsRef, (snapshot) => {
       const data = snapshot.val();
       items = Object.values(data);
@@ -48,10 +61,15 @@
 <main>
   {#each items as item}
     <div class="item-list">
-      <div class="item-list__img"></div>
+      <div class="item-list__img">
+        <img alt={item.title} src={item.imgUrl} />
+      </div>
       <div class="item-list__info">
         <div class="item-list__info-title">{item.title}</div>
-        <div class="item-list__info-meta">{item.place}</div>
+        <div class="item-list__info-meta">
+          {item.place}
+          {calcTime(item.insertAt)}
+        </div>
         <div class="item-list__info-price">{item.price}</div>
         <div class="item-list__info-description">{item.description}</div>
       </div>
