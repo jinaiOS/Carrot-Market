@@ -1,4 +1,6 @@
 <script>
+  import Footer from "../components/Footer.svelte";
+
   let hour = new Date().getHours();
   let min = new Date().getMinutes();
 
@@ -30,103 +32,9 @@
 </header>
 
 <main>
-  <!-- <div class="item-list">
-      <div class="item-list__img">
-        <img src="assets/img.svg" />
-      </div>
-      <div class="item-list__info">
-        <div class="item-list__info-title">게이밍 PC 팝니다.</div>
-        <div class="item-list__info-meta">역삼동 19초 전</div>
-        <div class="item-list__info-price">100만원</div>
-      </div>
-    </div>
-    <div class="item-list">
-      <div class="item-list__img">
-        <img src="assets/img.svg" />
-      </div>
-      <div class="item-list__info">
-        <div class="item-list__info-title">게이밍 PC 팝니다.</div>
-        <div class="item-list__info-meta">역삼동 19초 전</div>
-        <div class="item-list__info-price">100만원</div>
-      </div>
-    </div>
-    <div class="item-list">
-      <div class="item-list__img">
-        <img src="assets/img.svg" />
-      </div>
-      <div class="item-list__info">
-        <div class="item-list__info-title">게이밍 PC 팝니다.</div>
-        <div class="item-list__info-meta">역삼동 19초 전</div>
-        <div class="item-list__info-price">100만원</div>
-      </div>
-    </div>
-    <div class="item-list">
-      <div class="item-list__img">
-        <img src="assets/img.svg" />
-      </div>
-      <div class="item-list__info">
-        <div class="item-list__info-title">게이밍 PC 팝니다.</div>
-        <div class="item-list__info-meta">역삼동 19초 전</div>
-        <div class="item-list__info-price">100만원</div>
-      </div>
-    </div>
-    <div class="item-list">
-      <div class="item-list__img">
-        <img src="assets/img.svg" />
-      </div>
-      <div class="item-list__info">
-        <div class="item-list__info-title">게이밍 PC 팝니다.</div>
-        <div class="item-list__info-meta">역삼동 19초 전</div>
-        <div class="item-list__info-price">100만원</div>
-      </div>
-    </div>
-    <div class="item-list">
-      <div class="item-list__img">
-        <img src="assets/img.svg" />
-      </div>
-      <div class="item-list__info">
-        <div class="item-list__info-title">게이밍 PC 팝니다.</div>
-        <div class="item-list__info-meta">역삼동 19초 전</div>
-        <div class="item-list__info-price">100만원</div>
-      </div> -->
-  <!-- </div> -->
-  <a class="write-btn" href="#/write.html">+ 글쓰기</a>
+  <a class="write-btn" href="#/write">+ 글쓰기</a>
 </main>
 
-<footer>
-  <div class="footer-block">
-    <div class="footer-icons">
-      <div class="footer-icons__img">
-        <img src="assets/home.svg" />
-      </div>
-      <div>홈</div>
-    </div>
-    <div class="footer-icons">
-      <div class="footer-icons__img">
-        <img src="assets/document.svg" />
-      </div>
-      <div>동네생활</div>
-    </div>
-    <div class="footer-icons">
-      <div class="footer-icons__img">
-        <img src="assets/location.svg" />
-      </div>
-      <div>내 근처</div>
-    </div>
-    <button id="goToChat">
-      <div class="footer-icons">
-        <div class="footer-icons__img">
-          <img src="assets/chat.svg" />
-        </div>
-        <div>채팅</div>
-      </div>
-    </button>
-    <div class="footer-icons">
-      <div class="footer-icons__img">
-        <img src="assets/user.svg" />
-      </div>
-      <div>나의 당근</div>
-    </div>
-  </div>
-</footer>
-<div class="media-info-msg">화면 사이즈를 늘려주세요.</div>
+<Footer />
+
+<!-- <div class="media-info-msg">화면 사이즈를 늘려주세요.</div> -->
