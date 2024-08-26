@@ -6,12 +6,7 @@
   import Write from "./pages/Write.svelte";
   import NotFound from "./pages/NotFound.svelte";
   import "./css/style.css";
-  import { GoogleAuthProvider } from "firebase/auth";
-
-  const provider = new GoogleAuthProvider();
-  provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
-
-  let login = false;
+  import { user$ } from "./store"
 
   const routes = {
     "/": Main,
@@ -21,7 +16,7 @@
   };
 </script>
 
-{#if !login}
+{#if !$user$}
   <Login />
 {:else}
   <Router {routes} />

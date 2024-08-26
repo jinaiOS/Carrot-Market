@@ -8,7 +8,7 @@
 
 <footer>
   <div class="footer-block">
-    <button class="footer-icons on:click={moveToHome}">
+    <button class="footer-icons" on:click={moveToHome}>
       <div class="footer-icons__img">
         {#if location === "home"}
           <svg
