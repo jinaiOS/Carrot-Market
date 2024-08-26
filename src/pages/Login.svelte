@@ -8,8 +8,11 @@
   const loginWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
       const user = result.user;
       user$.set(user);
+      localStorage.setItem("token", token);
     } catch (error) {
       console.log(error);
     }
@@ -18,7 +21,7 @@
 
 <div>
   {#if $user$}
-  <div>{$user$?.displayName}</div>
+    <div>{$user$?.displayName}</div>
   {/if}
   <div>로그인하기</div>
   <button class="login-btn" on:click={loginWithGoogle}>
