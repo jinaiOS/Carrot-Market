@@ -13,6 +13,7 @@
     signInWithCredential,
   } from "firebase/auth";
   import { onMount } from "svelte";
+  import Loading from "./pages/Loading.svelte";
 
   let isLoading = true;
 
@@ -40,7 +41,7 @@
 </script>
 
 {#if isLoading}
-  <div>로딩중입니다~</div>
+  <Loading />
 {:else if !$user$}
   <Login />
 {:else}
