@@ -14,6 +14,7 @@
   } from "firebase/auth";
   import { onMount } from "svelte";
   import Loading from "./pages/Loading.svelte";
+  import MyPage from "./pages/MyPage.svelte";
 
   let isLoading = true;
 
@@ -34,6 +35,7 @@
     "/": Main,
     "/signup": Signup,
     "/write": Write,
+    "/my": MyPage,
     "*": NotFound,
   };
 
