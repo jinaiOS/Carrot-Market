@@ -1,5 +1,6 @@
 <script>
   import { getDatabase, ref, push } from "firebase/database";
+  import Footer from "../components/Footer.svelte";
 
   let title;
   let price;
@@ -8,12 +9,14 @@
 
   function writeUserData() {
     const db = getDatabase();
-    push(ref(db, "items/" + title), {
+    push(ref(db, "items/"), {
       title,
       price,
       description,
       place,
     });
+    alert("글쓰기가 완료되었습니다.");
+    window.location.hash = "/";
   }
 </script>
 
@@ -44,6 +47,22 @@
     <input type="text" id="place" name="place" bind:value={place} />
   </div>
   <div>
-    <button type="submit">제출</button>
+    <button class="write-button" type="submit">제출</button>
   </div>
 </form>
+
+<Footer location="write" />
+
+<style>
+  .write-button {
+    background-color: tomato;
+    color: white;
+    border-radius: 25px;
+    font-size: 15px;
+    position: fixed;
+    margin: 10px;
+    padding: 5px 12px 5px 12px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    text-decoration: none;
+  }
+</style>

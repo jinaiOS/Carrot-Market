@@ -1,10 +1,24 @@
 <script>
+  import { onMount } from "svelte";
+  import { getDatabase, onValue, ref } from "firebase/database";
   import Footer from "../components/Footer.svelte";
 
   let hour = new Date().getHours();
   let min = new Date().getMinutes();
 
-  setInterval(() => (min = min + 1), 1000);
+  $: items = [];
+
+  const db = getDatabase();
+  const itemsRef = ref(db, "items/");
+
+   onMount(() =>
+    onValue(itemsRef, (snapshot) => {
+      const data = snapshot.val();
+      items = Object.values(data);
+    })
+  );
+
+  //   setInterval(() => (min = min + 1), 1000);
 </script>
 
 <header>
@@ -32,9 +46,20 @@
 </header>
 
 <main>
+  {#each items as item}
+    <div class="item-list">
+      <div class="item-list__img"></div>
+      <div class="item-list__info">
+        <div class="item-list__info-title">{item.title}</div>
+        <div class="item-list__info-meta">{item.place}</div>
+        <div class="item-list__info-price">{item.price}</div>
+        <div class="item-list__info-description">{item.description}</div>
+      </div>
+    </div>
+  {/each}
   <a class="write-btn" href="#/write">+ 글쓰기</a>
 </main>
 
-<Footer />
+<Footer location="home" />
 
 <!-- <div class="media-info-msg">화면 사이즈를 늘려주세요.</div> -->
